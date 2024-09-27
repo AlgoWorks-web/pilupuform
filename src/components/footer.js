@@ -1,13 +1,13 @@
 import React from "react";
-
+import logo from '../assets/logo.jpg';
 function Footer() {
   return (
-    <footer className="bg-gray-200 py-8 px-4">
+    <footer className="bg-gray-200 py-8 px-10">
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
         
         {/* Logo and Company Name in Flexbox */}
         <div className="flex items-center space-x-4">
-          <img src="https://pilupubucket.s3.ap-south-1.amazonaws.com/logo.jpg" alt="Logo" className="h-36 w-36"/>
+          <img src={logo} alt="Logo" className="h-36 w-36"/>
           <h2 className="text-lg font-bold">PILUPU</h2>
         </div>
 
@@ -24,7 +24,7 @@ function Footer() {
         {/* Contact */}
         <div>
           <h3 className="text-gray-400 font-semibold mb-2">Contact</h3>
-          <p className="text-blue-500"><a href="tel:+91.......">+91 ........</a></p>
+          <p className="text-blue-500"><a href="tel:+91.......">+91 9876543210</a></p>
           <p className="text-blue-500"><a href="mailto:chakragroup.hyd@gmail.com">chakragroup.hyd@gmail.com</a></p>
           {/* <p className="text-blue-500"><a href="#feedback">Feedback Form</a></p> */}
         </div>
