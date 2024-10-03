@@ -18,7 +18,7 @@ const Invitation = () => {
     useEffect(() => {
         const fetchEventDetails = async () => {
             try {
-                const response = await axios.get(`http://localhost:8080/events/${eventId}`);
+                const response = await axios.get(`http://http://ec2-3-110-217-72.ap-south-1.compute.amazonaws.com:3079/events/${eventId}`);
                 setEventDetails(response.data);
             } catch (error) {
                 console.error('Error fetching event details:', error);

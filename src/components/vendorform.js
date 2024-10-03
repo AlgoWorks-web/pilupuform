@@ -47,7 +47,7 @@ export default function VendorForm() {
         console.log("Data to submit:", formDataToSubmit); // Log the form data
 
         try {
-            const response = await axios.post('http://ec2-3-110-217-72.ap-south-1.compute.amazonaws.com:8080/vendor-details/add', formDataToSubmit, {
+            const response = await axios.post('http://ec2-3-110-217-72.ap-south-1.compute.amazonaws.com:3079/vendor-details/add', formDataToSubmit, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
