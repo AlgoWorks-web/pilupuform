@@ -18,7 +18,7 @@ const Invitation = () => {
     useEffect(() => {
         const fetchEventDetails = async () => {
             try {
-                const response = await axios.get(`http://http://ec2-3-110-217-72.ap-south-1.compute.amazonaws.com:8080/events/${eventId}`);
+                const response = await axios.get(`http://localhost:8080/events/${eventId}`);
                 setEventDetails(response.data);
             } catch (error) {
                 console.error('Error fetching event details:', error);
@@ -62,6 +62,7 @@ const Invitation = () => {
 
     return (
         <div className="bg-emerald-100 flex flex-col items-center my-8">
+            <div className='items-center text-4xl'>Invitation Details</div>
             {eventDetails && (
                 <div className="mt-8 w-3/4 border bg-white p-8 rounded-xl max-w-2xl shadow-lg">
                     <h2 className="text-3xl text-center font-bold mb-10">{eventDetails.eventName}</h2>
