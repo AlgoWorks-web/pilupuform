@@ -29,6 +29,17 @@ export default function VendorForm() {
         setUploadedImages([...e.target.files]);
     };
 
+    const categoryMapping = {
+        'Photographer': 1,
+        'Decoration': 2,
+        'Gift Shops': 3,
+        'Hotels': 4,
+        'NGO': 5,
+        'Musicians': 6,
+        'Orchestra': 7
+    };
+    
+ 
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log("Form submitted");
@@ -37,21 +48,59 @@ export default function VendorForm() {
         formDataToSubmit.append('profilePicture', profilePicture);
 
         uploadedImages.forEach((image) => {
-            formDataToSubmit.append('uploadedImages', image);
+            formDataToSubmit.append('uploadedImages[]', image);
         });
+        
+        console.log("Selected Category:", formData.category);
+        console.log("Mapped Vendor Type ID:", categoryMapping[formData.category]);
+        const vendorTypeId = categoryMapping[formData.category];
+        if (vendorTypeId === undefined) {
+            console.error('Invalid category selected');
+            alert('Please select a valid vendor category');
+             return; // Prevent form submission
+        }
+        formDataToSubmit.append('vendor_type_id', vendorTypeId);
+
+        //formDataToSubmit.append('vendor_type_id', categoryMapping[formData.category]);
 
         Object.entries(formData).forEach(([key, value]) => {
             formDataToSubmit.append(key, value);
         });
 
         console.log("Data to submit:", formDataToSubmit); // Log the form data
+         // Log the entire FormData object
+        for (let pair of formDataToSubmit.entries()) {
+        console.log(`${pair[0]}: ${pair[1]}`);
+         }
 
-        try {
-            const response = await axios.post('http://ec2-3-110-217-72.ap-south-1.compute.amazonaws.com:3079/vendor-details/add', formDataToSubmit, {
+         console.log("Data to submit:", formDataToSubmit); // Log the form data
+        
+         try {
+            // const response = await axios.post('https://184.168.123.18:8443/vendor-details/add', formDataToSubmit, {
+            //     headers: {
+            //         'Content-Type': 'multipart/form-data'
+            //     }
+            // });
+
+            // const response = await axios.post('https://zingreel.in/add.php', formDataToSubmit, {
+            //     headers: {
+            //         'Content-Type': 'multipart/form-data'
+            //     }
+            // });
+
+            const response = await axios.post('http://localhost/add.php', formDataToSubmit, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             });
+            
+            // const response = await axios.post('http://127.0.0.1:8081/api/vendor-details/add', formDataToSubmit, {
+            //     headers: {
+            //         'Content-Type': 'multipart/form-data'
+            //     }
+            // });
+            
+            
             console.log('Vendor added:', response.data);
             alert('Vendor added successfully!');
 
@@ -69,9 +118,10 @@ export default function VendorForm() {
             setProfilePicture(null);
             setUploadedImages([]);
         } catch (error) {
-            console.error('Error adding vendor:', error);
+            console.error('Error adding vendor:', error.response ? error.response.data : error.message);
             alert('Error adding vendor. Please try again.');
         }
+        
     };
 
     return (
@@ -136,7 +186,7 @@ export default function VendorForm() {
                             <select name="category"
                                 value={formData.category}
                                 onChange={handleChange} className="w-full p-2 border border-gray-300 rounded mt-1">
-                                <option>Choose Vendor Category</option>
+                                <option value="">Choose Vendor Category</option>
                                 <option>Photographer</option>
                                 <option>Decoration</option>
                                 <option>Gift Shops</option>
@@ -239,6 +289,7 @@ export default function VendorForm() {
                 </div>
             </div>
         </div>
+       
         </div>
     );
 }

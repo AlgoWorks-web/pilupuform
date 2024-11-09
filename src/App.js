@@ -17,15 +17,24 @@ function App() {
       {/* <VendorForm /> */}
       <Routes>
           {/* <Route path="/" element={<Home />} /> */}
-          <Route path="/vendorform" element={<VendorForm />} />
+          <Route path="/vendorform" element={<VendorPage />} />
           <Route path="/invitation" element={<Invitation />} />
 
           </Routes>
-      <Services />
+      {/* <Services /> */}
       <Footer />
     </div>
     </Router>
   );
 }
-
+function VendorPage() {
+  const location = useLocation();
+  
+  return (
+    <>
+      <VendorForm />
+      {location.pathname === '/vendorform' && <Services />}
+    </>
+  );
+}
 export default App;
