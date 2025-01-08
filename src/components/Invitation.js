@@ -19,8 +19,9 @@ const Invitation = () => {
     useEffect(() => {
         const fetchEventDetails = async () => {
             try {
-                 const response = await axios.get(`http://localhost/fetch_event.php?eventId=${eventId}`);
+                //  const response = await axios.get(`http://localhost/fetch_event.php?eventId=${eventId}`);
                 //const response = await axios.get(`https://zingreel.in/fetch_event.php?eventId=${eventId}`);
+                const response = await axios.get(`http://127.0.0.1:8081/api/events/fetch_event/${eventId}`);
                 setEventDetails(response.data);
             } catch (error) {
                 console.error('Error fetching event details:', error);
@@ -119,13 +120,13 @@ const Invitation = () => {
             <div className='items-center text-4xl font-mono'>Invitation </div>
             {eventDetails && (
                  <>
-                 {eventDetails.image_content && (
-                    <img
-                        src={`data:image/jpeg;base64,${eventDetails.image_content}`}
-                        alt={eventDetails.file_name}
-                        className="w-96 h-1/2 mb-4 rounded"
-                    />
-                )}
+                <img
+    src={`data:${eventDetails.image_mime_type};base64,${eventDetails.invitationImage}`}
+    alt={eventDetails.file_name}
+    className="w-96 h-1/2 mb-4 rounded"
+/>
+
+
                 <div className=" w-3/4 border bg-white p-8 rounded-xl max-w-2xl shadow-lg">
                     <h2 className="text-4xl text-center  mb-10 font-serif">{eventDetails.event_name}</h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 px-4 sm:flex-row justify-around">
@@ -141,6 +142,10 @@ const Invitation = () => {
                             <p className='text-lg'>{eventDetails.event_location}</p>
                         </div>
                     </div>
+                    <div className="mt-4">
+                            <h3 className="text-lg font-semibold mb-3 text-gray-400">HOST</h3>
+                            <p className="text-lg">{eventDetails.host_name}</p>
+                        </div>
                     <div className="mt-8 flex items-center justify-center">
                             <a
                                 href={generateGoogleCalendarUrl()}

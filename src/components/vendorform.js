@@ -32,11 +32,12 @@ export default function VendorForm() {
     const categoryMapping = {
         'Photographer': 1,
         'Decoration': 2,
-        'Gift Shops': 3,
+        'Banquet Hall':3,
         'Hotels': 4,
         'NGO': 5,
-        'Musicians': 6,
-        'Orchestra': 7
+        'Makeup':6,
+        'Gift Shops': 7,
+        'Orchestra': 8, 
     };
     
  
@@ -88,18 +89,22 @@ export default function VendorForm() {
             //     }
             // });
 
-            const response = await axios.post('http://localhost/add.php', formDataToSubmit, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
+            // const response = await axios.post('http://localhost/add.php', formDataToSubmit, {
+            //     headers: {
+            //         'Content-Type': 'multipart/form-data'
+            //     }
+            // });
             
             // const response = await axios.post('http://127.0.0.1:8081/api/vendor-details/add', formDataToSubmit, {
             //     headers: {
             //         'Content-Type': 'multipart/form-data'
             //     }
             // });
-            
+            const response = await axios.post('https://e-gumastha.com/api/vendor-details/add', formDataToSubmit, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
             
             console.log('Vendor added:', response.data);
             alert('Vendor added successfully!');
@@ -189,11 +194,15 @@ export default function VendorForm() {
                                 <option value="">Choose Vendor Category</option>
                                 <option>Photographer</option>
                                 <option>Decoration</option>
-                                <option>Gift Shops</option>
+                                <option>Banquet Hall</option>
                                 <option>Hotels</option>
                                 <option>NGO</option>
-                                <option>Musicians</option>
+                                <option>Makeup</option>
+                                <option>Gift Shops</option>
                                 <option>Orchestra</option>
+                                
+                              
+                              
                             </select>
                         </div>
 
